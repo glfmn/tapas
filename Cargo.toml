@@ -1,0 +1,9 @@
+[package]
+name = "tapas"
+version = "0.1.0"
+authors = ["Gwen Lofman <Gwen@Lofman.co>"]
+
+[dependencies]
+
+[dev-dependencies]
+quickcheck = "0.3"
