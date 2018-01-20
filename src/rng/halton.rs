@@ -4,7 +4,7 @@ use rand::Rng;
 ///
 /// Calculates the halton sequence incrementally from a given base with minimal machine error.
 ///
-/// Since the halton sequence's base is non-trivial to find, the halton sequence is far from
+/// Since the halton sequence's base is trivial to find, the halton sequence is far from
 /// cryptographically secure.  Only use this for sampling applications or other non-cryptography
 /// contexts.
 ///
