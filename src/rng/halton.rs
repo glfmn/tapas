@@ -72,11 +72,18 @@ impl Halton {
     /// Generate a new Halton sequence starting at index `i` with base `b`
     ///
     /// The first number generated is always the value at index `i`; for example:
+    ///
     /// ```
+    /// # extern crate rand;
+    /// # extern crate tapas;
+    /// # use tapas::rng::Halton;
+    /// # use rand::Rng;
+    /// # fn main() {
     /// use std::f64::EPSILON;
-    /// let mut sampler = Halton::new(1,27)
+    /// let mut sampler = Halton::new(1,27);
     /// let first: f64 = sampler.gen();
     /// assert!((1./27. - first).abs() < EPSILON); // Equal within machine precision
+    /// # }
     /// ```
     pub fn new(i: u32, b: u32) -> Halton {
         // Pre-set size of the halton sequence to ensure we can get to at least the millionth
