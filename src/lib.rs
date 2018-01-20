@@ -27,3 +27,6 @@ macro_rules! abs_err_eq {
        assert!($test <= $upper && $test >= $lower, $($tail:tt)*);
     };
 }
+
+
+pub mod rng;
