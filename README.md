@@ -1,4 +1,3 @@
-# Tapas, A Sampling library
+# Tapas, A Quasi-Random Sampling Library
 
-Use distributions to sample structs of numeric data for use for scientific
-purposes.
+Extension for the `rand` crate which supports popular quasi-random number generators.

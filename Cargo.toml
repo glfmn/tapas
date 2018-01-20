@@ -4,6 +4,7 @@ version = "0.1.0"
 authors = ["Gwen Lofman <Gwen@Lofman.co>"]
 
 [dependencies]
+rand = "0.4"
 
 [dev-dependencies]
 quickcheck = "0.3"
