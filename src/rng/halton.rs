@@ -42,7 +42,7 @@ use rand::Rng;
 ///     4. * (in_circle as f64) / (points as f64)
 /// }
 ///
-/// // Create two halton sequence generators with coprime bases 17 and 19
+/// // Create two halton sequence generators with prime bases 17 and 19
 /// let h_est = monte_carlo_pi(10_000, Halton::new(1,17), Halton::new(1,19));
 ///
 /// // Estimate using standard thread_rng
@@ -77,12 +77,13 @@ impl Halton {
     /// # extern crate rand;
     /// # extern crate tapas;
     /// # use tapas::rng::Halton;
-    /// # use rand::Rng;
     /// # fn main() {
+    /// use rand::Rng;
     /// use std::f64::EPSILON;
-    /// let mut sampler = Halton::new(1,27);
+    ///
+    /// let mut sampler = Halton::new(1,23);
     /// let first: f64 = sampler.gen();
-    /// assert!((1./27. - first).abs() < EPSILON); // Equal within machine precision
+    /// assert!((1./23. - first).abs() < EPSILON); // Equal within machine precision
     /// # }
     /// ```
     pub fn new(i: u32, b: u32) -> Halton {
