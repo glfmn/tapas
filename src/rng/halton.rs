@@ -1,4 +1,5 @@
 use rand::Rng;
+use std::iter::Iterator;
 
 /// Incrementally calculated Halton sequence
 ///
@@ -51,6 +52,15 @@ use rand::Rng;
 /// // The error is less than the standard number generator with 100 times less points
 /// assert!((h_est-PI).abs() < (r_est-PI).abs());
 /// # } // close main
+/// ```
+///
+/// We can also use Halton as an iterator, but it will never end by itself, so be sure to use the
+/// `take` method to determine how many numbers you want from the sequence, if a finite number is
+/// desired.
+///
+/// ```
+/// # use tapas::rng::Halton;
+/// let seq: Vec<f64> = Halton::new(1,17).take(10).collect();
 /// ```
 ///
 /// # References
@@ -168,6 +178,15 @@ impl Halton {
         }
     }
 
+    /// Skip a desired number of elements from the halton sequence
+    ///
+    /// In some applications, it's preferred to sample only the 100th element or so.
+    pub fn skip(&mut self, size: usize) {
+        for _ in 0..size {
+            self.advance()
+        }
+    }
+
     /// Get the next value in the halton sequence as an f64 value between `0` and `1`
     #[inline]
     fn sample_f64(&mut self) -> f64 {
@@ -209,6 +228,15 @@ impl Rng for Halton {
     #[inline]
     fn next_f64(&mut self) -> f64 {
         self.sample_f64()
+    }
+}
+
+impl Iterator for Halton {
+    type Item = f64;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        self.advance();
+        Some(self.state)
     }
 }
 
