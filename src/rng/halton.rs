@@ -243,6 +243,7 @@ impl Iterator for Halton {
 #[cfg(test)]
 mod test {
     use super::*;
+    use quickcheck::TestResult;
 
     // Brute force calculate element `i` in Halton base `b`
     fn brute_force(index: u32, base: u32) -> f64 {
@@ -261,29 +262,30 @@ mod test {
 
     quickcheck! {
         // Ensure implementation is equal to brute force within 2 times machine precision
-        fn compare_to_brute_force(index: u32, base: u32) -> bool {
+        fn compare_to_brute_force(index: u32, base: u32) -> TestResult {
             use std::f64::EPSILON;
 
-            let i = if index == 0 {1} else {index};
-            let b = if base < 2 {2} else {base};
+            if index == 0 ||  base < 2 {
+                return TestResult::discard();
+            };
 
-            let mut sampler = Halton::new(i,b);
+            let mut sampler = Halton::new(index, base);
 
             sampler.gen::<f64>();
-            let bf = brute_force(i,b);
+            let bf = brute_force(index, base);
             // Check brute force against implementation
-            (sampler.state - bf).abs() < EPSILON * 2.
+            TestResult::from_bool((sampler.state - bf).abs() < EPSILON * 2.)
         }
 
         // Ensure implementation is equal to brute force for a range of values to ensure that the
         // advance method actually calculates the expected values
-        fn compare_to_range(base: u32, start: u32, end: u32) -> bool {
+        fn compare_to_range(base: u32, start: u32, end: u32) -> TestResult {
             use std::f64::EPSILON;
 
             // Ensure random arguments won't break brute force method and can create a valid range
-            let (start, end) = if start > end {(end, start)} else {(start,end)};
-            let start = if start == 0 {1} else {start};
-            let base = if base < 2 {2} else {base};
+            if start > end || start == 0 || base < 2 {
+                return TestResult::discard();
+            };
 
             // Initialize the sampler with the given start index and base
             let mut sampler = Halton::new(start,base);
@@ -298,7 +300,7 @@ mod test {
                 }
             }
 
-            all
+            TestResult::from_bool(all)
         }
     }
 
