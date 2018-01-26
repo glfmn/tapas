@@ -20,7 +20,8 @@ use std::iter::Iterator;
 /// ```
 /// # extern crate rand;
 /// # extern crate tapas;
-/// # use tapas::rng::Halton;
+/// use tapas::quasi::Halton;
+///
 /// use std::f64::consts::PI;
 /// use rand::Rng;
 /// use rand::distributions::{IndependentSample, Range};
@@ -59,7 +60,7 @@ use std::iter::Iterator;
 /// desired.
 ///
 /// ```
-/// # use tapas::rng::Halton;
+/// # use tapas::quasi::Halton;
 /// let seq: Vec<f64> = Halton::new(1,17).take(10).collect();
 /// ```
 ///
@@ -86,7 +87,7 @@ impl Halton {
     /// ```
     /// # extern crate rand;
     /// # extern crate tapas;
-    /// # use tapas::rng::Halton;
+    /// # use tapas::quasi::Halton;
     /// # fn main() {
     /// use rand::Rng;
     /// use std::f64::EPSILON;

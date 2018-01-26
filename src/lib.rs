@@ -45,7 +45,7 @@ macro_rules! abs_err_eq {
 }
 
 
-pub mod rng;
+pub mod quasi;
 
 
 mod test {

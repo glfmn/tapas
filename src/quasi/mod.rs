@@ -52,8 +52,8 @@ use rand::Rng;
 /// Enables, for example, mixing of halton generators of different bases.
 ///
 /// ```
-/// # use tapas::rng::Halton;
-/// # use tapas::rng::Interleave;
+/// # use tapas::quasi::Halton;
+/// # use tapas::quasi::Interleave;
 /// let mut gen = Interleave::new(&[Halton::new(1, 13), Halton::new(1, 17)]);
 ///
 /// assert!(gen.next_f64() == 1./13. && gen.next_f64() == 1./17.);
