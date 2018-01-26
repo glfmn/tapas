@@ -302,31 +302,13 @@ mod test {
         }
     }
 
-    // Ensure implementation is equal to known sequence within machine precision
-    #[test]
-    fn compare_to_known_base_2() {
-        use std::f64::EPSILON;
-        let mut sampler = Halton::new(1,2);
-
-        let seq = [1./2., 1./4., 3./4., 1./8., 5./8., 3./8., 7./8.,1./16., 9./16.];
-
-        for s in seq.iter() {
-            let sampled: f64 = sampler.gen();
-            abs_err_eq!(s == sampled ~ EPSILON, "sampled value {} != {}",sampled,s);
+    test_known! {
+        fn compare_to_known_base_2(Halton::new(1,2)) {
+            [1./2., 1./4., 3./4., 1./8., 5./8., 3./8., 7./8.,1./16., 9./16.]
         }
-    }
 
-    // Ensure implementation is equal to known sequence within machine precision
-    #[test]
-    fn compare_to_known_base_3() {
-        use std::f64::EPSILON;
-        let mut sampler = Halton::new(1,3);
-
-        let seq = [1./3., 2./3., 1./9., 4./9., 7./9., 2./9., 5./9., 8./9., 1./27.];
-
-        for s in seq.iter() {
-            let sampled: f64 = sampler.gen();
-            abs_err_eq!(s == sampled ~ EPSILON, "sampled value {} != {}",sampled,s);
+        fn compare_to_known_base_3(Halton::new(1,3)) {
+            [1./3., 2./3., 1./9., 4./9., 7./9., 2./9., 5./9., 8./9., 1./27.]
         }
     }
 }
